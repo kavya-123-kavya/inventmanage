@@ -11,6 +11,7 @@ import UserSignup from "./components/UserSignup";
 import UserSignin from "./components/UserSignin";
 import UserNavbar from "./user/UserNavbar";
 import UserHome from "./user/UserHome";
+import InventoryDashboard from "./admin/InventoryDashboard";
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/signup/admin" element={<AdminSignUp/>} />
-        <Route path="admin/signin" element={<AdminSignin />} />
+        <Route path="/admin/signin" element={<AdminSignin />} />
         <Route path="/admin/home" element={<AdminHome />} />
         <Route path="/signup/user" element={<UserSignup />} />
         <Route path="/user/signin" element={<UserSignin />} />
         <Route path="/userhome" element={<UserHome />} />
 
+        <Route path="/admin/inventory" element={<InventoryDashboard />} />
         
       </Routes>
     </Router>
