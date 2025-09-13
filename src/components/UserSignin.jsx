@@ -1,217 +1,81 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-const slides = [
-  {
-    title: "More than 75% of our customers have lasting impacts",
-    subtitle: "20-30% reduction in inventory costs",
-    image:
-      "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Automate inventory tracking effortlessly",
-    subtitle: "Save time and minimize errors",
-    image:
-      "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    title: "Scale your business with confidence",
-    subtitle: "Built for modern inventory needs",
-    image: "/images/usersignup.png",
-  },
-];
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function UserSignin() {
-  const [current, setCurrent] = useState(0);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+const UserSignin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [successMsg, setSuccessMsg] = useState("");
 
-  const [message, setMessage] = useState("");
-
-  // Auto-rotate carousel
   useEffect(() => {
-    const interval = setInterval(
-      () => setCurrent((prev) => (prev + 1) % slides.length),
-      4000
-    );
-    return () => clearInterval(interval);
-  }, []);
+    if (location.state?.fromSignUp) {
+      setSuccessMsg("Signup Successful! Please login.");
+    }
+  }, [location.state]);
 
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Handle form submit
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const userExists = savedUsers.find((user) => user.email === email && user.password === password);
 
-    try {
-      const response = await fetch("http://localhost:8081/users/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setMessage("✅ Login successful!");
-        // Redirect to dashboard/home
-        window.location.href = "/userhome";
-      } else {
-        const errorData = await response.text();
-        setMessage(`❌ Login failed: ${errorData}`);
-      }
-    } catch (error) {
-      setMessage("❌ Error connecting to backend.");
+    if (userExists) {
+      setSuccessMsg("Login Successful!");
+      setTimeout(() => navigate("/userhome"), 1000);
+    } else {
+      setErrors({ general: "Invalid email or password" });
     }
   };
 
   return (
-    <>
-      <Navbar />
-    <div style={{ display: "flex", minHeight: "100vh", fontFamily: "Arial" }}>
-      {/* Left Carousel Section */}
-      <div
-        style={{
-          flex: 1,
-          background: "#0b0b0b",
-          color: "#E6FFED",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          padding: "30px",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "700px",
-            textAlign: "center",
-            height: "550px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "22px",
-              marginBottom: "10px",
-              color: "#00c853",
-              minHeight: "60px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {slides[current].title}
-          </h2>
-
-          <img
-            src={slides[current].image}
-            alt="slide"
-            style={{
-              width: "100%",
-              height: "400px",
-              objectFit: "cover",
-              borderRadius: "12px",
-              marginBottom: "10px",
-            }}
-          />
-
-          <p
-            style={{
-              color: "#b2f5b2",
-              fontWeight: "600",
-              minHeight: "30px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {slides[current].subtitle}
-          </p>
-        </div>
+    <div style={styles.container}>
+      {/* Keep the same UI as your previous SignIn */}
+      <div style={styles.leftPanel}>
+        <div style={styles.logo}>🌟 SubscriptEase</div>
+        <h2 style={styles.welcome}>Welcome Back!</h2>
+        <p style={styles.desc}>To stay connected with us please login with your personal info</p>
       </div>
 
-      {/* Right Signin Form */}
-      <div
-        style={{
-          flex: 1,
-          background: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ width: "400px" }}>
-          <h2 style={{ marginBottom: "20px" }}>Welcome back</h2>
-          <form
-            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              style={inputStyle}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              style={inputStyle}
-              required
-            />
-            <button
-              type="submit"
-              style={{
-                background: "#00c853",
-                color: "#fff",
-                border: "none",
-                padding: "12px",
-                borderRadius: "6px",
-                fontWeight: "bold",
-                cursor: "pointer",
-              }}
-            >
-              Sign in
-            </button>
-            {message && (
-              <p style={{ fontSize: "14px", marginTop: "10px", color: "red" }}>
-                {message}
-              </p>
-            )}
-            <p style={{ fontSize: "14px", marginTop: "10px" }}>
-              Don’t have an account?{" "}
-              <a href="/signup/user" style={{ color: "#00c853" }}>
-                Create one
-              </a>
-            </p>
-          </form>
-        </div>
+      <div style={styles.rightPanel}>
+        <h2 style={styles.loginHeading}>Login</h2>
+        {errors.general && <p style={styles.error}>{errors.general}</p>}
+        {successMsg && <p style={styles.success}>{successMsg}</p>}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={styles.input}/>
+          {errors.email && <p style={styles.error}>{errors.email}</p>}
+
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} style={styles.input}/>
+          {errors.password && <p style={styles.error}>{errors.password}</p>}
+
+          <button type="submit" style={styles.button}>LOGIN</button>
+        </form>
+
+        <p style={styles.signupText}>
+          Don't have an account? <span style={styles.signupLink} onClick={() => navigate("/signup/user")}>Sign Up</span>
+        </p>
       </div>
     </div>
-    </>
   );
-}
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  border: "1px solid #ccc",
-  borderRadius: "6px",
-  fontSize: "14px",
 };
+
+// Keep the same styles as SignUp for consistency
+const styles = { /* same as above */ 
+  container: { display: "flex", minHeight: "100vh", fontFamily: "Arial, sans-serif" },
+  leftPanel: { flex: 1, backgroundColor: "#0D3B66", color: "#fff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px" },
+  logo: { fontSize: "28px", fontWeight: "700", marginBottom: "30px" },
+  welcome: { fontSize: "32px", fontWeight: "600", marginBottom: "15px" },
+  desc: { fontSize: "16px", textAlign: "center", maxWidth: "300px", lineHeight: "1.5" },
+  rightPanel: { flex: 1, backgroundColor: "#ffffff", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px" },
+  loginHeading: { fontSize: "28px", fontWeight: "600", marginBottom: "20px", color: "#0D3B66" },
+  form: { width: "100%", maxWidth: "300px", display: "flex", flexDirection: "column" },
+  input: { padding: "12px", marginBottom: "15px", borderRadius: "8px", border: "1px solid #0D3B66", fontSize: "15px", outline: "none" },
+  button: { padding: "12px", backgroundColor: "#0D3B66", color: "#fff", border: "none", borderRadius: "8px", fontSize: "16px", cursor: "pointer" },
+  error: { color: "#E63946", fontSize: "13px", marginBottom: "10px" },
+  success: { color: "#2A9D8F", fontSize: "14px", marginBottom: "10px" },
+  signupText: { marginTop: "20px", fontSize: "14px", color: "#555" },
+  signupLink: { color: "#0D3B66", fontWeight: "600", cursor: "pointer" },
+};
+
+export default UserSignin;

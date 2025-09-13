@@ -1,69 +1,134 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
 
 const AboutPage = () => {
   return (
-    <div>
-      <Navbar />
-      <div style={{
-        padding: "50px",
-        textAlign: "center",
-        backgroundColor: "#f5f5f5",
-        minHeight: "calc(100vh - 70px)"
-      }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "20px", color: "#2980b9" }}>
-          About InventoryPro
-        </h1>
-        <p style={{ fontSize: "1.2rem", maxWidth: "700px", margin: "0 auto", marginBottom: "30px" }}>
-          InventoryPro is a comprehensive inventory management system designed to help businesses
-          manage their products, suppliers, and stock levels efficiently. With an easy-to-use dashboard,
-          real-time updates, and insightful analytics, InventoryPro ensures that you always stay
-          on top of your inventory.
-        </p>
+    <div
+      style={{
+        minHeight: "100vh",
+        padding: "40px",
+        backgroundColor: "#f9f9fb",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      {/* Page Header */}
+      <h1
+        style={{
+          color: "#4b4fff",
+          fontSize: "32px",
+          marginBottom: "20px",
+          textAlign: "center",
+        }}
+      >
+        About Subscription Management System
+      </h1>
+      <p
+        style={{
+          color: "#6b6b8a",
+          fontSize: "18px",
+          maxWidth: "800px",
+          margin: "0 auto 40px auto",
+          lineHeight: "1.7",
+          textAlign: "center",
+        }}
+      >
+        The Subscription Management System is designed to help users and service
+        providers efficiently manage subscription-based products and services.
+        Users can subscribe, upgrade, downgrade, or cancel plans seamlessly,
+        while administrators can create and manage plans, pricing, and discounts.
+        The system also provides insights and recommendations, making it easier
+        to optimize subscription usage and pricing strategies.
+      </p>
 
-        <div style={{
+      {/* Cards Section */}
+      <div
+        style={{
           display: "flex",
           justifyContent: "center",
+          gap: "20px",
           flexWrap: "wrap",
-          gap: "30px",
-          marginTop: "30px"
-        }}>
-          <div style={{
-            backgroundColor: "#ecf0f1",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "250px",
-            boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
-          }}>
-            <h3 style={{ color: "#e67e22", marginBottom: "10px" }}>Our Mission</h3>
-            <p>To simplify inventory management and help businesses save time and reduce errors.</p>
-          </div>
+        }}
+      >
+        {/* Mission Card */}
+        <div
+          style={{
+            background: "#ffffff",
+            padding: "25px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            width: "280px",
+          }}
+        >
+          <h3 style={{ color: "#4b4fff", fontSize: "24px", marginBottom: "12px" }}>
+            Our Mission
+          </h3>
+          <p style={{ color: "#4b4b6b", fontSize: "16px", lineHeight: "1.6" }}>
+            To simplify subscription lifecycle management for both individuals and
+            service providers by enabling seamless plan operations, smart
+            recommendations, and transparency in pricing.
+          </p>
+        </div>
 
-          <div style={{
-            backgroundColor: "#ecf0f1",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "250px",
-            boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
-          }}>
-            <h3 style={{ color: "#e67e22", marginBottom: "10px" }}>Our Vision</h3>
-            <p>To become the most reliable and user-friendly inventory management solution for businesses worldwide.</p>
-          </div>
+        {/* Vision Card */}
+        <div
+          style={{
+            background: "#ffffff",
+            padding: "25px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            width: "280px",
+          }}
+        >
+          <h3 style={{ color: "#4b4fff", fontSize: "24px", marginBottom: "12px" }}>
+            Our Vision
+          </h3>
+          <p style={{ color: "#4b4b6b", fontSize: "16px", lineHeight: "1.6" }}>
+            To become the most trusted platform for managing all subscription services,
+            empowering users with control and admins with insights to optimize plans,
+            offers, and customer engagement.
+          </p>
+        </div>
 
-          <div style={{
-            backgroundColor: "#ecf0f1",
-            padding: "20px",
-            borderRadius: "10px",
-            width: "250px",
-            boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
-          }}>
-            <h3 style={{ color: "#e67e22", marginBottom: "10px" }}>Core Values</h3>
-            <p>Efficiency, reliability, accuracy, and simplicity in inventory management.</p>
-          </div>
+        {/* Core Features Card */}
+        <div
+          style={{
+            background: "#ffffff",
+            padding: "25px",
+            borderRadius: "12px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            width: "280px",
+          }}
+        >
+          <h3 style={{ color: "#4b4fff", fontSize: "24px", marginBottom: "12px" }}>
+            Core Features
+          </h3>
+          <ul
+            style={{
+              color: "#4b4b6b",
+              textAlign: "left",
+              paddingLeft: "18px",
+              fontSize: "16px",
+              lineHeight: "1.6",
+              marginTop: "10px",
+            }}
+          >
+            <li>
+              <strong>Plan Management:</strong> Subscribe, renew, upgrade, downgrade, or cancel plans with ease.
+            </li>
+            <li>
+              <strong>Admin Tools:</strong> Create and manage plans, pricing, and promotional discounts.
+            </li>
+            <li>
+              <strong>Analytics & Insights:</strong> Track popular plans, cancellations, and user trends.
+            </li>
+            <li>
+              <strong>Recommendations:</strong> Get AI-powered suggestions for users and pricing optimization.
+            </li>
+            <li>
+              <strong>Notifications:</strong> Stay updated on renewals, offers, and subscription changes.
+            </li>
+          </ul>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 };
