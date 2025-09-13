@@ -12,6 +12,8 @@ import UserSignin from "./components/UserSignin";
 import UserNavbar from "./user/UserNavbar";
 import UserHome from "./user/UserHome";
 import InventoryDashboard from "./admin/InventoryDashboard";
+import AccountSettings from "./admin/AccountSettings";
+import ProfileInfo from "./admin/ProfileInfo";
 
 function App() {
   return (
@@ -27,7 +29,8 @@ function App() {
         <Route path="/signup/user" element={<UserSignup />} />
         <Route path="/user/signin" element={<UserSignin />} />
         <Route path="/userhome" element={<UserHome />} />
-
+        <Route path="/account-settings" element={<AccountSettings />} />
+        <Route path="/profile-info" element={<ProfileInfo />} />
         <Route path="/admin/inventory" element={<InventoryDashboard />} />
         
       </Routes>

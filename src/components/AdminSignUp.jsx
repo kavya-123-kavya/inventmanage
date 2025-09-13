@@ -40,19 +40,29 @@ const AdminSignup = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:8081/admin/register", formData);
-      console.log("User registered:", response.data);
-      alert("Account created successfully! and email sent successfully");
-      navigate("/admin/signin");
-    } catch (error) {
-      console.error("Error creating account:", error);
-      alert("Failed to create account. Try again.");
+  try {
+    const response = await axios.post("http://localhost:8081/admin/register", formData);
+    
+    console.log("User registered:", response.data);
+
+    // Store email in localStorage
+    localStorage.setItem("userEmail", formData.email);
+
+    alert("Account created successfully! and email sent successfully");
+    navigate("/admin/home"); // navigate to home page
+  } catch (error) {
+    console.error("Error creating account:", error);
+    if(error.response && error.response.data && error.response.data.message){
+        alert(error.response.data.message); // show proper error
+    } else {
+        alert("Failed to create account. Try again.");
     }
-  };
+  }
+};
+
 
   // ✅ Google login handler
    // ✅ Handle Google success
@@ -62,18 +72,23 @@ const AdminSignup = () => {
 
   const googleUser = {
     email: decoded.email,
-    googleId: decoded.sub, // unique Google ID
+    googleId: decoded.sub, 
   };
 
   try {
     const response = await axios.post("http://localhost:8081/admin/google-signup", googleUser);
+
+    // Store email in localStorage
+    localStorage.setItem("userEmail", decoded.email);
+
     alert("Google signup/login successful!");
-    navigate("/admin/signin");
+    navigate("/admin/home");
   } catch (error) {
     console.error("Google signup error:", error);
     alert("Google signup failed.");
   }
 };
+
 
 
   const handleGoogleError = () => {

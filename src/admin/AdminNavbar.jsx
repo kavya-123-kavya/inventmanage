@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Home, Users, Package, FileText, Settings, LogOut, ChevronDown, Bell, Search } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+
+  
 
 const AdminNavbar = () => {
   const [activeItem, setActiveItem] = useState("dashboard");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleItemClick = (item) => {
     setActiveItem(item);
@@ -92,17 +97,21 @@ const AdminNavbar = () => {
         </div>
 
         {isDropdownOpen && (
-          <div style={dropdownStyle}>
-            <div style={dropdownItemStyle}>
-              <Settings size={16} />
-              <span>Account Settings</span>
-            </div>
-            <div style={dropdownItemStyle}>
-              <Bell size={16} />
-              <span>Notifications</span>
-            </div>
+        <div style={dropdownStyle}>
+          <div
+            style={dropdownItemStyle}
+            onClick={() => navigate("/account-settings")}
+          >
+            <Settings size={16} />
+            <span>Account Settings</span>
           </div>
-        )}
+
+          <div style={dropdownItemStyle}>
+            <Bell size={16} />
+            <span>Notifications</span>
+          </div>
+        </div>
+      )}
 
         <button
           style={logoutButtonStyle}

@@ -1,21 +1,22 @@
-import React from "react";
-import AdminNavbar from "./AdminNavbar";
+import React, { useEffect, useState } from "react";
 
 const AdminHome = () => {
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    // Get email from localStorage
+    const storedEmail = localStorage.getItem("userEmail");
+    if(storedEmail){
+      setEmail(storedEmail);
+    }
+  }, []);
+
   return (
-    <div style={{ display: 'flex' }}>
-    <AdminNavbar />
-    <div style={{ marginLeft: '250px', padding: '20px', width: 'calc(100% - 250px)' }}>
-      {/* Your admin content goes here */}
-      <p style={{ fontSize: "18px", color: "#f39f18ff" }}>
-          Welcome to the Admin Dashboard. Select an option from the sidebar.
-        </p>
+    <div style={{ padding: "50px", fontFamily: "Arial, sans-serif" }}>
+      <h1>Welcome, {email ? email : "User"}!</h1>
+      <p>This is your home page.</p>
     </div>
-  </div>
-    
   );
 };
 
 export default AdminHome;
-
-
