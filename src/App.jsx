@@ -15,8 +15,8 @@ import DashboardUsage from "./pages/usage";
 import MainDashboard from "./pages/dashboard";
 import AdminDashboard from "./admin/AdminHome";
 
-import UserSignup from "./components/UserSignup";
-import UserSignin from "./components/UserSignin";
+import UserSignup from "./pages/UserSignup";
+import UserSignin from "./pages/UserSignin";
 import UserNavbar from "./user/UserNavbar";
 import UserHome from "./user/UserHome";
 import InventoryDashboard from "./admin/InventoryDashboard";
@@ -38,14 +38,14 @@ function App() {
         <Route path="/admin/inventory" element={<InventoryDashboard />} />
 
         {/* Dashboards (Jashwanth branch) */}
-        <Route path="/" element={<MainDashboard />} />
+        <Route path="/user" element={<MainDashboard />} />
         <Route path="/overview" element={<DashboardOverview />} />
         <Route path="/browse-plans" element={<DashboardBrowsePlans />} />
         <Route path="/usage" element={<DashboardUsage />} />
         <Route path="/ai-recommendations" element={<DashboardAIRecommendations />} />
 
         {/* User Routes (master branch) */}
-        <Route path="/signup/user" element={<UserSignup />} />
+        <Route path="/" element={<UserSignup />} />
         <Route path="/user/signin" element={<UserSignin />} />
         <Route path="/userhome" element={<UserHome />} />
       </Routes>
